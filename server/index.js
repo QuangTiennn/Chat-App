@@ -1,6 +1,7 @@
 require ('dotenv').config();
 const express = require('express');
 const socketio = require('socket.io');
+const cors = require('cors');
 const http = require('http');
 
 const port = process.env.PORT || 5000;
@@ -27,7 +28,7 @@ mongoose.connect(process.env.MONGO_URL,{
             extends : true
         })
     );
-
+    app.use(cors());
     app.use(express.static('public'));
     console.log('DB is running');
     
@@ -57,7 +58,7 @@ mongoose.connect(process.env.MONGO_URL,{
         });
     });
     
-    app.use("/", indexRouter);
+    app.use("/api", indexRouter);
     server.listen(port,()=>{
         console.log(`server is running on port : ${port}`);
     });
