@@ -10,14 +10,13 @@ module.exports.getAllUser = (req,res) => {
 };
 
 module.exports.Register = (req,res) => {
-    const body = req.body;
-    console.log(body,'[body]');
+    const email = req.body.data.email;
     User.findOne({email : email},(err,user)=>{
         if(err){
             return res.json({err});
         }
-        if(user == null){r
-            const user = new User(req.body)
+        if(user == null){
+            const user = new User(req.body.data)
             user.save((err, result) => {
                 if(err){
                     return res.json(err);
@@ -30,8 +29,12 @@ module.exports.Register = (req,res) => {
 };
 
 module.exports.Login = (req,res) =>{
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.body.data.email;
+    console.log(email,'[email]');
+    
+    const password = req.body.data.password;
+    console.log(password,'[password]');
+    
     User.findOne({email : email}).exec((err,user)=>{
         if(err){
             return res.json({err});

@@ -9,7 +9,7 @@ const Login = ()=>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
-    useEffect(()=>{
+    function postLogin(){
         // const fetched = fetch('http://localhost:5000/api/login',{
         //     method : "GET",
         //     // headers : {"X-Requested-With" : 'XMLHttpRequest',
@@ -27,11 +27,16 @@ const Login = ()=>{
         //     console.log(err,'[err]');
         // })
 
-        axios.post('http://localhost:5000/api/login')
+        axios.post('http://localhost:5000/api/login',{
+            body : {
+                'email' : email,
+                'password' : password 
+            }
+        })
         .then((res)=>{
             console.log(res.data,'[res]');
         })
-    })
+    }
 
 return(
     <div className="joinOuterContainer">
@@ -43,8 +48,8 @@ return(
             <div>
                 <input placeholder='Password ...' className='joinInput mt-20' type='password' onChange={(event)=> setPassword(event.target.value)}></input>
             </div>
-            <Link onClick={event => (!email || !password) ? event.preventDefault(): null} to={`/chat?email=${email}`}>
-                <button className='button mt-20' type='submit'>Sign In</button>
+            <Link onClick={event => (!email || !password) ? event.preventDefault(): null} to={'/'}>
+                <button onClick={()=>{postLogin()}} className='button mt-20' type='submit'>Sign In</button>
             </Link>
         </div>
     </div>

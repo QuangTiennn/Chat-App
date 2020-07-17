@@ -30,7 +30,7 @@ const Register = () =>{
             //     'Content-Type': 'application/x-www-form-urlencoded',
             //     'Accept': 'application/json'
             // },
-            body :{
+            data :{
                'name' : name,
                'email' : email,
                'password' : password,
@@ -63,7 +63,9 @@ const Register = () =>{
                     <div>
                         <input placeholder='Confirm Password...' className='joinInput mt-20' type='password' onChange={(event)=> setPassword_comfirm(event.target.value)} ></input>
                     </div>
+                    <Link onClick={event => (!name) ? event.preventDefault(): null} to={'/'}>
                         <button onClick={()=> postRegister()}  className='button mt-20' type='button'>Sign Up</button>
+                    </Link>
                 </form>
             </div>
         </div>
